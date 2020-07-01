@@ -1,10 +1,11 @@
 <?php
 
-namespace Vendor\Package;
+namespace Paksuco\Menu;
 
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Components\Menu;
+use Illuminate\Support\ServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider
+class MenuServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -20,11 +21,8 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        $this->handleConfigs();
-        // $this->handleMigrations();
-        // $this->handleViews();
-        // $this->handleTranslations();
-        // $this->handleRoutes();
+        $this->handleViews();
+        $this->handleViewComponents();
     }
 
     /**
@@ -47,34 +45,15 @@ class ServiceProvider extends LaravelServiceProvider
         return [];
     }
 
-    private function handleConfigs()
-    {
-        $configPath = __DIR__ . '/../config/packagename.php';
-
-        $this->publishes([$configPath => config_path('packagename.php')]);
-
-        $this->mergeConfigFrom($configPath, 'packagename');
-    }
-
-    private function handleTranslations()
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'packagename');
-    }
-
     private function handleViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../views', 'packagename');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'paksuco-menu');
 
-        $this->publishes([__DIR__.'/../views' => base_path('resources/views/vendor/packagename')]);
+        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/paksuco/menu')]);
     }
 
-    private function handleMigrations()
+    private function handleViewComponents()
     {
-        $this->publishes([__DIR__ . '/../migrations' => base_path('database/migrations')]);
-    }
-
-    private function handleRoutes()
-    {
-        include __DIR__.'/../routes/routes.php';
+        $this->loadViewComponentsAs("paksuco", [Menu::class]);
     }
 }
