@@ -7,30 +7,21 @@ use Illuminate\View\Component;
 class Menu extends Component
 {
     /**
-     * The alert type.
+     * The Menu Manager
      *
      * @var string
      */
-    public $type;
-
-    /**
-     * The alert message.
-     *
-     * @var string
-     */
-    public $message;
+    public $menuManager;
 
     /**
      * Create the component instance.
      *
-     * @param  string  $type
-     * @param  string  $message
+     * @param  MenuManager  $menuManager
      * @return void
      */
-    public function __construct($type, $message)
+    public function __construct(MenuManager $menuManager)
     {
-        $this->type = $type;
-        $this->message = $message;
+        $this->menuManager = $menuManager;
     }
 
     /**
@@ -40,6 +31,6 @@ class Menu extends Component
      */
     public function render()
     {
-        return view('components.alert');
+        return view('paksuco-menu.menu', ["menuManager" => $this->menuManager]);
     }
 }

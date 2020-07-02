@@ -21,7 +21,6 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->handleViews();
         $this->handleViewComponents();
     }
 
@@ -32,26 +31,14 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Bind any implementations.
+        $this->app->singleton('MenuManager', function($app){
+            return new MenuManager();
+        });
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * Register the view components
      */
-    public function provides()
-    {
-        return [];
-    }
-
-    private function handleViews()
-    {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'paksuco-menu');
-
-        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/paksuco/menu')]);
-    }
-
     private function handleViewComponents()
     {
         $this->loadViewComponentsAs("paksuco", [Menu::class]);

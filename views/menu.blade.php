@@ -1,0 +1,1 @@
+{{$menuManager->dump($key)}}

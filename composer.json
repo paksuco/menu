@@ -37,11 +37,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Paksuco\\Menu\\ServiceProvider"
-            ],
-            "aliases": {
-                "Package": "Paksuco\\Menu\\Facade"
-            }
+                "Paksuco\\Menu\\MenuServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
