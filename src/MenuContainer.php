@@ -7,6 +7,17 @@ use Paksuco\Menu\Exceptions\InvalidTypeException;
 
 class MenuContainer extends Collection
 {
+
+    public function addItem(string $title, string $link, string $icon = "", callable $callback = null)
+    {
+        $menuItem = MenuItem::create($title, $link, $icon);
+        $this->push($menuItem);
+        if($callback){
+            $callback($menuItem->getChildren());
+        }
+        return $this;
+    }
+
      /**
      * Create a new collection.
      *
@@ -43,17 +54,5 @@ class MenuContainer extends Collection
         }
 
         return $this;
-    }
-
-    public function build()
-    {
-        $output = "<ul>";
-
-        foreach($this->items as $item)
-        {
-            $output .= $item->build();
-        }
-
-        return $output . "</ul>";
     }
 }

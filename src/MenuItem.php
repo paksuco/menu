@@ -15,21 +15,19 @@ class MenuItem
         // prevent instantiation
     }
 
-    public static function create(string $title, string $icon, string $link, MenuContainer $children = null)
+    public static function create(string $title, string $link, string $icon = "")
     {
         $instance = new static;
         $instance->title = $title;
-        $instance->icon = $icon;
         $instance->link = $link;
-        $instance->children = $children === null ? new MenuContainer() : $children;
+        $instance->icon = $icon;
+        $instance->children = new MenuContainer();
         return $instance;
     }
 
     public function build()
     {
-        return implode("", [
-            "<a href='", $this->link, "'>", $this->title, $this->children ? $this->children->build() : "", "</a>",
-        ]);
+        return view("paksuco::menuitem", ["item" => $this]);
     }
 
     public function __toString()

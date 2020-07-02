@@ -8,29 +8,25 @@ class MenuManager
     /**
      * Collection of user-generated menu containers
      *
-     * @var Illuminate\Support\Collection
+     * @var \Illuminate\Support\Collection
      */
     protected $menus = null;
 
-    public function add(string $menuKey, string $title, string $link, string $iconClass = ""): MenuContainer
-    {
-        $menu = $this->get($menuKey);
-        $menu->push(MenuItem::create($title, $iconClass, $link));
-        return $menu;
-    }
+    protected $stylesAppended = false;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->menus = collect();
     }
 
-    protected function get(string $key): MenuContainer
+    public function menu(string $menuKey): MenuContainer
     {
-        if ($this->exists($key) === false) {
-            $this->create($key);
-        }
+        return $this->exists($menuKey) ? $this->getMenuItem($menuKey) : $this->createMenu($menuKey);
+    }
 
-        return $this->getMenuItem($key);
+    public function exists(string $key): bool
+    {
+        return $this->menus->has($key);
     }
 
     protected function getMenuItem(string $key): MenuContainer
@@ -38,18 +34,22 @@ class MenuManager
         return $this->menus->get($key);
     }
 
-    protected function exists(string $key): bool
+    public function createMenu(string $key, $options = [])
     {
-        return $this->menus->has($key);
+        $this->menus->put($key, new MenuContainer([], $options));
+        return $this->menus->get($key);
     }
 
-    protected function create(string $key)
+    public function dump(string $key)
     {
-        return $this->menus->put($key, new MenuContainer);
+        return view("paksuco::menucontainer", ["items" => $this->menus->get($key), "level" => 0]);
     }
 
-    protected function dump(string $key)
+    public function styles()
     {
-        return $this->get($key)->build();
+        if ($this->stylesAppended === false) {
+            $this->stylesAppended = true;
+            return view("paksuco::menustyles");
+        }
     }
 }

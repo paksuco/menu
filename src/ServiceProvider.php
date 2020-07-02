@@ -31,7 +31,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('MenuManager', function($app){
+        $this->app->singleton('Paksuco\\Menu\\MenuManager', function($app){
             return new MenuManager();
         });
     }
@@ -41,6 +41,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function handleViewComponents()
     {
-        $this->loadViewComponentsAs("paksuco", [Menu::class]);
+        $this->loadViewsFrom(__DIR__.'/../views/', 'paksuco');
+        $this->loadViewComponentsAs("paksuco", [Components\Menu::class]);
     }
 }

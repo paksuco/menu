@@ -1,11 +1,15 @@
 <?php
 
-namespace Paksuco\Menu;
+namespace Paksuco\Menu\Components;
 
 use Illuminate\View\Component;
+use Paksuco\Menu\MenuManager;
 
 class Menu extends Component
 {
+
+    public $key;
+
     /**
      * The Menu Manager
      *
@@ -19,8 +23,9 @@ class Menu extends Component
      * @param  MenuManager  $menuManager
      * @return void
      */
-    public function __construct(MenuManager $menuManager)
+    public function __construct(MenuManager $menuManager, string $key)
     {
+        $this->key = $key;
         $this->menuManager = $menuManager;
     }
 
@@ -31,6 +36,9 @@ class Menu extends Component
      */
     public function render()
     {
-        return view('paksuco-menu.menu', ["menuManager" => $this->menuManager]);
+        return view('paksuco::menu', [
+            "menuManager" => $this->menuManager,
+            "key" => $this->key
+        ]);
     }
 }
