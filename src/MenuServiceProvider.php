@@ -2,7 +2,7 @@
 
 namespace Paksuco\Menu;
 
-use Components\Menu;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class MenuServiceProvider extends ServiceProvider
@@ -31,8 +31,8 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(MenuManager::class, function ($app) {
-            return new MenuManager();
+        $this->app->singleton(MenuManager::class, function () {
+            return MenuManager::getInstance();
         });
     }
 

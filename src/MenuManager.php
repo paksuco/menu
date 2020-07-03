@@ -2,6 +2,8 @@
 
 namespace Paksuco\Menu;
 
+use Illuminate\Support\Facades\Event;
+
 class MenuManager
 {
 
@@ -12,11 +14,23 @@ class MenuManager
      */
     protected $menus = null;
 
+    protected static $instance = null;
+
     protected $stylesAppended = false;
 
-    public function __construct()
+    private function __construct()
     {
         $this->menus = collect();
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance == null)
+        {
+            self::$instance = new static;
+        }
+
+        return self::$instance;
     }
 
     public function menu(string $menuKey): MenuContainer
@@ -42,6 +56,7 @@ class MenuManager
 
     public function dump(string $key)
     {
+        Event::dispatch("paksuco.menu.beforeRender", [$this]);
         return view("paksuco::menucontainer", ["items" => $this->menus->get($key), "level" => 0]);
     }
 
