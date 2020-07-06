@@ -4,6 +4,7 @@ namespace Paksuco\Menu;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Paksuco\Menu\Commands\MenuCommand;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,7 @@ class MenuServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->handleViewComponents();
+        $this->handleCommands();
     }
 
     /**
@@ -34,6 +36,15 @@ class MenuServiceProvider extends ServiceProvider
         $this->app->singleton(MenuManager::class, function () {
             return MenuManager::getInstance();
         });
+    }
+
+    private function handleCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MenuCommand::class,
+            ]);
+        }
     }
 
     /**

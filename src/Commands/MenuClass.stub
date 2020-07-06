@@ -1,0 +1,15 @@
+<?php
+
+namespace %%NAMESPACE%%;
+
+use \Paksuco\Menu\MenuContainer;
+
+class %%CLASSNAME%% extends \Paksuco\Menu\Contracts\Menu
+{
+    protected $key;
+
+    public function register(MenuContainer $menu)
+    {
+        // do your magic!
+    }
+}
