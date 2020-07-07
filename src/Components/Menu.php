@@ -2,7 +2,6 @@
 
 namespace Paksuco\Menu\Components;
 
-use Facade\Ignition\Support\ComposerClassMap;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Paksuco\Menu\MenuManager;
@@ -43,18 +42,9 @@ class Menu extends Component
      */
     public function render()
     {
-        $key = Str::replaceLast('Menu', '', Str::studly($this->key)) . "Menu";
-        $className = app()->getNamespace() . "Menus\\" .  $key;
-
-        if(class_exists($className))
-        {
-            $menu = app($className);
-            $menu->register($this->menuManager->menu($this->key));
-        }
-
         return view('paksuco::menu', [
             "menuManager" => $this->menuManager,
-            "key" => $this->key
+            "key" => $this->key,
         ]);
     }
 }

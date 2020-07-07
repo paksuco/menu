@@ -3,6 +3,11 @@
         Taken from example: https://tailwindcomponents.com/component/nestable-dropdown-menu
     */
 
+    .paksuco-menu {
+        position: relative;
+        z-index: 999999;
+    }
+
     .paksuco-menu>ul>li>ul {
         transform: translatex(0%) scaleY(0);
         position: absolute;

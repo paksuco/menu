@@ -4,7 +4,11 @@ namespace Paksuco\Menu;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Paksuco\Menu\Commands\MenuCommand;
+use Paksuco\Menu\Contracts\Menu;
+use ReflectionClass;
+use Symfony\Component\Finder\Finder;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -24,6 +28,7 @@ class MenuServiceProvider extends ServiceProvider
     {
         $this->handleViewComponents();
         $this->handleCommands();
+        $this->handleMenus();
     }
 
     /**
@@ -38,6 +43,11 @@ class MenuServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Registers the artisan commands
+     *
+     * @return vpid
+     */
     private function handleCommands()
     {
         if ($this->app->runningInConsole()) {
@@ -45,6 +55,21 @@ class MenuServiceProvider extends ServiceProvider
                 MenuCommand::class,
             ]);
         }
+    }
+
+    private function handleMenus()
+    {
+        $this->callAfterResolving(MenuManager::class, function () {
+            foreach (Finder::create()->files()->name('*.php')->in(app_path("Menus")) as $file) {
+                require $file->getRealPath();
+                $className = Str::replaceLast('.php', '', basename($file));
+                $classNameWithNamespace = "\\" . app()->getnamespace() . "Menus\\" . $className;
+                $classInfo = new ReflectionClass($classNameWithNamespace);
+                if ($classInfo->getParentClass()->name === Menu::class) {
+                    app()->make($classNameWithNamespace);
+                }
+            }
+        });
     }
 
     /**

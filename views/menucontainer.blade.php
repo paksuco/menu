@@ -8,9 +8,13 @@
     @endif
     @foreach($items as $menuitem)
         @if($level == 0)
-        <li class="p-2 pr-5 mr-3 relative">
+            @if($menuitem->getChildren()->count() > 0)
+                <li class="px-3 py-2 pr-6 relative">
+            @else
+                <li class="px-3 py-2 relative">
+            @endif
         @else
-        <li class="p-2 pr-5 relative border-b">
+            <li class="p-2 pr-5 relative border-b">
         @endif
             @include("paksuco::menuitem", ["item" => $menuitem, "level" => $level])
         </li>

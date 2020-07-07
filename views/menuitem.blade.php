@@ -6,7 +6,7 @@
         {{$item->getTitle()}}
     </a>
     @if($item->getChildren()->count() > 0)
-    <i class="fa {{$level == 0 ? "fa-chevron-down" : "fa-chevron-right"}} paksuco-arrow absolute inset-y-0 right-{{$level == 0 ? 0 : 2 }} flex items-center justify-center origin-center"></i>
+    <i class="fa {{$level == 0 ? "fa-chevron-down" : "fa-chevron-right"}} paksuco-arrow absolute inset-y-0 right-2 flex items-center justify-center origin-center"></i>
 </div>
 @include("paksuco::menucontainer", ["items" => $item->getChildren(), "level" => $level + 1])
 @else

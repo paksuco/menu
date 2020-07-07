@@ -19,7 +19,7 @@ class MenuCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a Paksuco\Menu class';
+    protected $description = 'Create a Menu class';
 
     /**
      * Create a new command instance.
@@ -57,6 +57,7 @@ class MenuCommand extends Command
 
         $stub = str_replace("%%NAMESPACE%%", app()->getNamespace() . "Menus", $stub);
         $stub = str_replace("%%CLASSNAME%%", $className, $stub);
+        $stub = str_replace("%%MENUKEY%%", Str::kebab($menuName), $stub);
 
         if (!file_exists(app_path() . "/Menus")) {
             mkdir(app_path() . "/Menus", 0755, true);

@@ -6,9 +6,10 @@ use \Paksuco\Menu\MenuContainer;
 
 class %%CLASSNAME%% extends \Paksuco\Menu\Contracts\Menu
 {
-    protected $key;
+    protected $key = "%%MENUKEY%%";
 
-    public function register(MenuContainer $menu)
+
+    public function build(MenuContainer $menu)
     {
         // do your magic!
     }
