@@ -5,7 +5,7 @@
 
     .paksuco-menu {
         position: relative;
-        z-index: 999999;
+        z-index: 9999;
     }
 
     .paksuco-menu>ul>li>ul {
