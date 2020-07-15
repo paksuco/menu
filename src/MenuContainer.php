@@ -12,13 +12,13 @@ class MenuContainer extends Collection
     {
         $menuItem = MenuItem::create($title, $link, $icon);
         $this->push($menuItem);
-        if($callback){
+        if ($callback) {
             $callback($menuItem->getChildren());
         }
         return $this;
     }
 
-     /**
+    /**
      * Create a new collection.
      *
      * @param  mixed  $items
@@ -28,7 +28,7 @@ class MenuContainer extends Collection
     {
         $this->items = [];
         $items = $this->getArrayableItems($items);
-        foreach($items as $value){
+        foreach ($items as $value) {
             if ($value instanceof MenuItem) {
                 $this->items[] = $value;
             } else {

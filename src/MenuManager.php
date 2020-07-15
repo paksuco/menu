@@ -52,7 +52,7 @@ class MenuManager
 
     public function menu($key)
     {
-        if($this->menus->has($key)){
+        if ($this->menus->has($key)) {
             return $this->menus->get($key)->getContainer();
         }
         throw new MenuDoesntExistException($key);
@@ -67,11 +67,10 @@ class MenuManager
     public function dump(string $key)
     {
         if ($this->menus->has($key)) {
-
             // Enable other classes to extend the menu items
             Event::dispatch("paksuco.menu.beforeRender", [
                 "key" => $key,
-                "container" => $this->menus->get($key)->getContainer()
+                "container" => $this->menus->get($key)->getContainer(),
             ]);
 
             return view("paksuco::menucontainer", [
@@ -80,7 +79,7 @@ class MenuManager
             ]);
         }
 
-        throw new MenuDoesntExistException($key);
+        // throw new MenuDoesntExistException($key);
     }
 
     public function styles()

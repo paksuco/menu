@@ -1,6 +1,7 @@
-
 {!! $menuManager->styles() !!}
 
-<nav class="paksuco-menu shadow-sm paksuco-menu-{{\Illuminate\Support\Str::kebab($key)}}">
+<nav class="relative bg-gray-800 text-gray-100 shadow
+    paksuco-menu-{{\Illuminate\Support\Str::kebab($key)}}"
+    style="z-index: 9999">
     {!! $menuManager->dump($key) !!}
 </nav>
