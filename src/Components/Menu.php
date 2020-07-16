@@ -24,15 +24,23 @@ class Menu extends Component
     public $menuManager;
 
     /**
+     * The theme to render the menu with
+     *
+     * @var string
+     */
+    public $theme;
+
+    /**
      * Create the component instance.
      *
      * @param  MenuManager  $menuManager
      * @return void
      */
-    public function __construct(MenuManager $menuManager, string $key)
+    public function __construct(MenuManager $menuManager, string $key, string $theme = "default")
     {
         $this->menuManager = $menuManager;
         $this->key = $key;
+        $this->theme = $theme ?? "default";
     }
 
     /**
@@ -43,8 +51,9 @@ class Menu extends Component
     public function render()
     {
         return view('paksuco::menu', [
-            "menuManager" => $this->menuManager,
+            "manager" => $this->menuManager,
             "key" => $this->key,
+            "theme" => $this->theme
         ]);
     }
 }

@@ -32,6 +32,39 @@ abstract class Menu
      */
     protected $menu;
 
+    protected $menuContainerClasses = [
+        "default" => [
+            0 => [
+                "ulClass" => "flex w-full",
+                "liWithoutChildren" => "p-0 border border-l-0 pr-2 relative",
+                "liWithChildren" => "p-0 border border-l-0 pr-6 relative",
+            ],
+            1 => [
+                "ulClass" => "bg-white border rounded-sm absolute top-full left-0",
+                "liWithoutChildren" => "p-0 relative border-b",
+                "liWithChildren" => "p-0 relative border-b",
+            ],
+            "n" => [
+                "ulClass" => "p-3 sm:p-0 absolute left-full top-0 flex flex-col sm:flex-row",
+                "liWithoutChildren" => "p-0 relative border-b",
+                "liWithChildren" => "p-0 relative border-b",
+            ],
+        ],
+    ];
+
+    protected $menuItemClasses = [
+        "default" => [
+            0 => [
+                "link" => "block p-2 px-3 text-gray-700 group-hover:text-gray-500 whitespace-no-wrap",
+                "icon" => "fa fa-chevron-down p-2 text-sm absolute inset-y-0 text-gray-700 group-hover:text-gray-500 right-2 flex items-center justify-center origin-center pointer-events-none",
+            ],
+            "n" => [
+                "link" => "block p-2 px-3 text-gray-700 group-hover:text-gray-900 whitespace-no-wrap",
+                "icon" => "fa fa-chevron-right text-sm absolute inset-y-0 text-white group-hover:text-gray-400 right-2 flex items-center justify-center origin-center pointer-events-none",
+            ],
+        ],
+    ];
+
     /**
      * Class constructor
      *
@@ -44,9 +77,16 @@ abstract class Menu
         if (empty($this->key)) {
             throw new InvalidKeyException();
         }
+
         $this->manager = $manager;
         $this->manager->push($this);
+
         $this->menu = new MenuContainer();
+        $this->menu->setStyles(
+            $this->menuContainerClasses,
+            $this->menuItemClasses
+        )->setTheme("default");
+
         $this->build($this->menu);
     }
 
@@ -74,5 +114,4 @@ abstract class Menu
      * @return  void
      */
     abstract public function build(MenuContainer $container);
-
 }

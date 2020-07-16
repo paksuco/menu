@@ -23,13 +23,6 @@ class MenuManager
     protected static $instance = null;
 
     /**
-     * Flag to indicate the global styles are appended
-     *
-     * @var bool
-     */
-    protected $stylesAppended = false;
-
-    /**
      * Class constructor
      */
     private function __construct()
@@ -64,7 +57,7 @@ class MenuManager
         $this->menus[$key] = $menu;
     }
 
-    public function dump(string $key)
+    public function dump(string $key, string $theme)
     {
         if ($this->menus->has($key)) {
             // Enable other classes to extend the menu items
@@ -73,20 +66,16 @@ class MenuManager
                 "container" => $this->menus->get($key)->getContainer(),
             ]);
 
+            $container = $this->menus->get($key)->getContainer();
+
+            $container->setTheme($theme);
+
             return view("paksuco::menucontainer", [
-                "items" => $this->menus->get($key)->getContainer(),
-                "level" => 0,
+                "container" => $container,
+                "level" => 0
             ]);
         }
 
         // throw new MenuDoesntExistException($key);
-    }
-
-    public function styles()
-    {
-        if ($this->stylesAppended === false) {
-            $this->stylesAppended = true;
-            return view("paksuco::menustyles");
-        }
     }
 }

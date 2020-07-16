@@ -71,6 +71,5 @@ class MenuCommand extends Command
         file_put_contents(app_path() . "/Menus/" . ucfirst($className) . ".php", $stub);
 
         $this->info("Menu class created!");
-
     }
 }
