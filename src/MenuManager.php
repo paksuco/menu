@@ -61,18 +61,21 @@ class MenuManager
     {
         if ($this->menus->has($key)) {
             // Enable other classes to extend the menu items
+            $container = $this->menus->get($key)->getContainer();
+            $container->setTheme($theme);
+
+            $random = \Illuminate\Support\Str::random(8);
+
             Event::dispatch("paksuco.menu.beforeRender", [
                 "key" => $key,
-                "container" => $this->menus->get($key)->getContainer(),
+                "container" => $container,
             ]);
-
-            $container = $this->menus->get($key)->getContainer();
-
-            $container->setTheme($theme);
 
             return view("paksuco::menucontainer", [
                 "container" => $container,
-                "level" => 0
+                "level" => 0,
+                "theme" => $theme,
+                "random" => $random
             ]);
         }
 

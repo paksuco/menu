@@ -41,6 +41,20 @@ class MenuContainer extends Collection
         return $this;
     }
 
+    public function hasItem(string $title)
+    {
+        return collect($this->items)->filter(function ($menuitem) use ($title) {
+            return $menuitem->getTitle() === $title;
+        })->count() > 0;
+    }
+
+    public function getChildren(string $title)
+    {
+        return collect($this->items)->filter(function ($menuitem) use ($title) {
+            return $menuitem->getTitle() === $title;
+        })->first()->getChildren() ?? null;
+    }
+
     /**
      * Create a new collection.
      *
@@ -158,6 +172,8 @@ class MenuContainer extends Collection
 
     public function getULClass($level)
     {
+        echo "menu-theme-{$this->theme} ";
+
         if (!is_array($this->containerClasses)) {
             return "";
         }
