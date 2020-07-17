@@ -1,12 +1,18 @@
 @if($container->count() > 0)
     <ul
+        x-cloak
         class="{{$container->getULClass($level)}}"
         @if($level > 0) x-cloak x-show="open_{{$random}}_{{$loop->index}}_{{$level-1}}" @endif
     >
         @foreach($container as $menuitem)
-        <li class="{{$container->getLIClass($level, $menuitem->getChildren()->count())}}"
-            @if($menuitem->getChildren()->count() || $level > 0) x-data="{ open_{{$random}}_{{$loop->index}}_{{$level}}: false }" @endif
-            >
+        @php $childCount = $menuitem->getChildren()->count(); @endphp
+        <li class="{{$container->getLIClass($level, $childCount)}}"
+            @if($childCount || $level > 0) x-data="{ open_{{$random}}_{{$loop->index}}_{{$level}}: false }" @endif
+            @click="open_{{$random}}_{{$loop->index}}_{{$level}} = true" @click.away="open_{{$random}}_{{$loop->index}}_{{$level}} = false"
+            @if($hoverable)
+            @mouseenter="open_{{$random}}_{{$loop->index}}_{{$level}} = true" @mouseleave="open_{{$random}}_{{$loop->index}}_{{$level}} = false"
+            @endif
+        >
             @include("paksuco::menuitem", ["item" => $menuitem, "level" => $level])
         </li>
         @endforeach

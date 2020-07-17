@@ -1,7 +1,5 @@
 @php $hasChildren = $item->getChildren()->count() > 0; @endphp
-<a class="{{$container->getLinkClass($level)}}" @if($hasChildren) href="#"
-   @click="open_{{$random}}_{{$loop->index}}_{{$level}} = true" @click.away="open_{{$random}}_{{$loop->index}}_{{$level}} = false" @else
-   href="{{$item->getLink()}}" @endif>
+<a class="{{$container->getLinkClass($level)}}" @if($hasChildren) href="#" @else href="{{$item->getLink()}}" @endif>
     <div>
         @if($item->getIconClass())
         <i class="{{$item->getIconClass()}}"></i>&nbsp;

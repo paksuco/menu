@@ -31,16 +31,30 @@ class Menu extends Component
     public $theme;
 
     /**
+     * Shows when the menu children will open on mouse hover
+     *
+     * @var bool
+     */
+    public $hoverable;
+
+    public $style;
+
+    public $class;
+
+    /**
      * Create the component instance.
      *
      * @param  MenuManager  $menuManager
      * @return void
      */
-    public function __construct(MenuManager $menuManager, string $key, string $theme = "default")
+    public function __construct(MenuManager $menuManager, string $key, string $theme = "default", bool $hoverable = false, string $style = null, string $class = null)
     {
         $this->menuManager = $menuManager;
         $this->key = $key;
         $this->theme = $theme ?? "default";
+        $this->hoverable = $hoverable;
+        $this->style = $style . "";
+        $this->class = $class . "";
     }
 
     /**
@@ -53,7 +67,10 @@ class Menu extends Component
         return view('paksuco::menu', [
             "manager" => $this->menuManager,
             "key" => $this->key,
-            "theme" => $this->theme
+            "theme" => $this->theme,
+            "hoverable" => $this->hoverable,
+            "style" => $this->style,
+            "class" => $this->class
         ]);
     }
 }
