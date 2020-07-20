@@ -1,6 +1,6 @@
 @if($container->count() > 0)
 <ul x-cloak class="{{$container->getULClass($level)}}" @if($level> 0) x-cloak
-    x-show="open_{{$random}}_{{$loop->index}}_{{$level-1}}" @endif
+    x-show.transition="open_{{$random}}_{{$loop->index}}_{{$level-1}}" @endif
     >
     @foreach($container as $menuitem)
     @php $childCount = $menuitem->getChildren()->count(); @endphp
