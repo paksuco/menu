@@ -56,11 +56,13 @@ abstract class Menu
         "default" => [
             0 => [
                 "link" => "block p-2 px-3 text-gray-700 group-hover:text-gray-500 whitespace-no-wrap",
-                "icon" => "fa fa-chevron-down p-2 text-sm absolute inset-y-0 text-gray-700 group-hover:text-gray-500 right-2 flex items-center justify-center origin-center pointer-events-none",
+                "arrow" => "fa fa-chevron-down p-2 text-sm absolute inset-y-0 text-gray-700 group-hover:text-gray-500 right-2 flex items-center justify-center origin-center pointer-events-none",
+                "icon" => "",
             ],
             "n" => [
                 "link" => "block p-2 px-3 text-gray-700 group-hover:text-gray-900 whitespace-no-wrap",
-                "icon" => "fa fa-chevron-right text-sm absolute inset-y-0 text-white group-hover:text-gray-400 right-2 flex items-center justify-center origin-center pointer-events-none",
+                "arrow" => "fa fa-chevron-right text-sm absolute inset-y-0 text-white group-hover:text-gray-400 right-2 flex items-center justify-center origin-center pointer-events-none",
+                "icon" => "",
             ],
         ],
     ];

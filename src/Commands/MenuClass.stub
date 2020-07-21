@@ -6,7 +6,55 @@ use \Paksuco\Menu\MenuContainer;
 
 class %%CLASSNAME%% extends \Paksuco\Menu\Contracts\Menu
 {
+    /**
+     * Your menu key here
+     *
+     * @var string
+     */
     protected $key = "%%MENUKEY%%";
+
+    /**
+     * Menu container theme definition, applies given classes to related items,
+     * structured like this:
+     *
+     * "theme_name" => [
+     *      $level => [
+     *          "ulClass" => "",
+     *          "liWithChildren" => "",
+     *          "liWithoutChildren" => "",
+     *      ]
+     * ]
+     *
+     * $level can be an integer, starting with 0, or "n" to apply all after that.
+     *
+     * If you want to use defaults, keep it commented.
+     *
+     * @var array
+     */
+
+     // protected $menuContainerClasses = [];
+
+    /**
+     * Menu items theme definition, applies given classes to related items,
+     * structured like this:
+     *
+     * "theme_name" => [
+     *      $level => [
+     *          "link" => "",
+     *          "icon" => "",
+     *          "text" => ""
+     *          "arrow" => "",
+     *      ]
+     * ]
+     *
+     * $level can be an integer, starting with 0, or "n" to apply all after that.
+     *
+     * If you want to use defaults, keep it commented.
+     *
+     * @var array
+     */
+
+     // protected $menuItemClasses = []
 
     public function build(MenuContainer $menu)
     {

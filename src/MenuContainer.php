@@ -108,88 +108,53 @@ class MenuContainer extends Collection
 
     public function getIconClass($level)
     {
-        if (!is_array($this->itemClasses)) {
-            return "";
-        }
+        return $this->getClass($this->itemClasses, $this->theme, $level, "icon", "");
+    }
 
-        if (!isset($this->itemClasses[$this->theme])) {
-            return "";
-        }
-
-        if (isset($this->itemClasses[$this->theme][$level]) && isset($this->itemClasses[$this->theme][$level]["icon"])) {
-            return $this->itemClasses[$this->theme][$level]["icon"];
-        }
-
-        if (isset($this->itemClasses[$this->theme]["n"]) && isset($this->itemClasses[$this->theme]["n"]["icon"])) {
-            return $this->itemClasses[$this->theme]["n"]["icon"];
-        }
-
-        return "";
+    public function getArrowClass($level)
+    {
+        return $this->getClass($this->itemClasses, $this->theme, $level, "arrow", "");
     }
 
     public function getLinkClass($level)
     {
-        if (!is_array($this->itemClasses)) {
-            return "";
-        }
+        return $this->getClass($this->itemClasses, $this->theme, $level, "link", "");
+    }
 
-        if (!isset($this->itemClasses[$this->theme])) {
-            return "";
-        }
-
-        if (isset($this->itemClasses[$this->theme][$level]) && isset($this->itemClasses[$this->theme][$level]["link"])) {
-            return $this->itemClasses[$this->theme][$level]["link"];
-        }
-
-        if (isset($this->itemClasses[$this->theme]["n"]) && isset($this->itemClasses[$this->theme]["n"]["link"])) {
-            return $this->itemClasses[$this->theme]["n"]["link"];
-        }
-
-        return "";
+    public function getTextClass($level)
+    {
+        return $this->getClass($this->itemClasses, $this->theme, $level, "text", "");
     }
 
     public function getLIClass($level, $childrenCount)
     {
-        if (!is_array($this->containerClasses)) {
-            return "";
-        }
-
-        if (!isset($this->containerClasses[$this->theme])) {
-            return "";
-        }
-
         $key = $childrenCount > 0 ? "liWithChildren" : "liWithoutChildren";
-        if (isset($this->containerClasses[$this->theme][$level]) && isset($this->containerClasses[$this->theme][$level][$key])) {
-            return $this->containerClasses[$this->theme][$level][$key];
-        }
-
-        if (isset($this->containerClasses[$this->theme]["n"]) && isset($this->containerClasses[$this->theme]["n"][$key])) {
-            return $this->containerClasses[$this->theme]["n"][$key];
-        }
-
-        return "";
+        return $this->getClass($this->containerClasses, $this->theme, $level, $key, "");
     }
 
     public function getULClass($level)
     {
-        echo "menu-theme-{$this->theme} ";
+        return $this->getClass($this->containerClasses, $this->theme, $level, "ulClass", "menu-theme-{$this->theme} z-" . $level * 10);
+    }
 
-        if (!is_array($this->containerClasses)) {
-            return "";
+    private function getClass($container, $theme, $level, $key, $suffix)
+    {
+        if (!is_array($container)) {
+            return " " . $suffix;
         }
 
-        if (!isset($this->containerClasses[$this->theme])) {
-            return "";
+        if (!isset($container[$theme])) {
+            return " " . $suffix;
         }
 
-        if (isset($this->containerClasses[$this->theme][$level]) && isset($this->containerClasses[$this->theme][$level]["ulClass"])) {
-            return $this->containerClasses[$this->theme][$level]["ulClass"] . " z-" . ($level * 10);
+        if (isset($container[$theme][$level]) && isset($container[$theme][$level][$key])) {
+            return $container[$theme][$level][$key] . " " . $suffix;
         }
 
-        if (isset($this->containerClasses[$this->theme]["n"]) && isset($this->containerClasses[$this->theme]["n"]["ulClass"])) {
-            return $this->containerClasses[$this->theme]["n"]["ulClass"] . " z-" . ($level * 10);
+        if (isset($container[$theme]["n"]) && isset($container[$theme]["n"][$key])) {
+            return $container[$theme]["n"][$key] . " " . $suffix;
         }
 
-        return "";
+        return " " . $suffix;
     }
 }

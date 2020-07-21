@@ -2,11 +2,12 @@
 <a class="{{$container->getLinkClass($level)}}" @if($hasChildren) href="#" @else href="{{$item->getLink()}}" @endif>
     <div>
         @if($item->getIconClass())
-        <i class="{{$item->getIconClass()}}"></i>&nbsp;
+        <i class="{{$container->getIconClass($level)}} {{$item->getIconClass()}}"></i>
         @endif
-        {{$item->getTitle()}}</div>
+        <span class="{{$container->getTextClass($level)}}">{{$item->getTitle()}}</span>
+    </div>
     @if($hasChildren)
-    <i class="{{$container->getIconClass($level)}}"></i>
+    <i class="{{$container->getArrowClass($level)}}"></i>
     @endif
 </a>
 @if($hasChildren)
