@@ -1,6 +1,6 @@
 @php $hasChildren = $item->getChildren()->count() > 0; @endphp
 <a class="{{$container->getLinkClass($level)}}" @if($hasChildren) href="#" @else href="{{$item->getLink()}}" @endif>
-    <div>
+    <div class="flex items-center">
         @if($item->getIconClass())
         <i class="{{$container->getIconClass($level)}} {{$item->getIconClass()}}"></i>
         @endif

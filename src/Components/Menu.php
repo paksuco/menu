@@ -41,13 +41,17 @@ class Menu extends Component
 
     public $class;
 
+    public $title;
+
+    public $titleclass;
+
     /**
      * Create the component instance.
      *
      * @param  MenuManager  $menuManager
      * @return void
      */
-    public function __construct(MenuManager $menuManager, string $key, string $theme = "default", bool $hoverable = false, string $style = null, string $class = null)
+    public function __construct(MenuManager $menuManager, string $key, string $theme = "default", bool $hoverable = false, string $style = null, string $class = null, string $title = "", $titleclass = "")
     {
         $this->menuManager = $menuManager;
         $this->key = $key;
@@ -55,6 +59,8 @@ class Menu extends Component
         $this->hoverable = $hoverable;
         $this->style = $style . "";
         $this->class = $class . "";
+        $this->title = $title . "";
+        $this->titleclass = $titleclass . "";
     }
 
     /**
@@ -70,7 +76,8 @@ class Menu extends Component
             "theme" => $this->theme,
             "hoverable" => $this->hoverable,
             "style" => $this->style,
-            "class" => $this->class
+            "class" => $this->class,
+            "title" => $this->title
         ]);
     }
 }
