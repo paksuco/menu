@@ -44,6 +44,7 @@ class %%CLASSNAME%% extends \Paksuco\Menu\Contracts\Menu
      *          "icon" => "",
      *          "text" => ""
      *          "arrow" => "",
+     *          "active" => ""
      *      ]
      * ]
      *

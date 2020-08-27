@@ -5,7 +5,7 @@
     @foreach($container as $menuitem)
     @php $childCount = $menuitem->getChildren()->count(); @endphp
     <li class="{{$container->getLIClass($level, $childCount)}}" @if($childCount || $level> 0) x-data="{
-        open_{{$random}}_{{$loop->index}}_{{$level}}: false }" @endif
+        open_{{$random}}_{{$loop->index}}_{{$level}}: {{$menuitem->active ? 'true' : 'false'}} }" @endif
         @click.stop="open_{{$random}}_{{$loop->index}}_{{$level}} = !open_{{$random}}_{{$loop->index}}_{{$level}}"
         @click.away="open_{{$random}}_{{$loop->index}}_{{$level}} = false"
         @if($hoverable)

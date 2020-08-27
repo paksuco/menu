@@ -28,6 +28,8 @@ class MenuContainer extends Collection
      */
     private $theme = "default";
 
+    public $active = false;
+
     public function addItem(string $title, string $link, string $icon = "", callable $callback = null)
     {
         $menuItem = MenuItem::create($title, $link, $icon);
@@ -106,6 +108,25 @@ class MenuContainer extends Collection
         return $this;
     }
 
+    public function setActiveClasses()
+    {
+        $result = false;
+        $url = request()->url();
+        foreach ($this->items as $item) {
+            $item->active = $item->getLink() == $url;
+            $children = $item->getChildren();
+            if (count($children->items) > 0) {
+                $hasActiveChildren = $children->setActiveClasses();
+                $item->active |= $hasActiveChildren;
+                $item->active = !!$item->active;
+            }
+            $result |= $item->active;
+            $result == !!$result;
+        }
+        $this->active = !!$result;
+        return $result;
+    }
+
     public function getIconClass($level)
     {
         return $this->getClass($this->itemClasses, $this->theme, $level, "icon", "");
@@ -116,9 +137,15 @@ class MenuContainer extends Collection
         return $this->getClass($this->itemClasses, $this->theme, $level, "arrow", "");
     }
 
-    public function getLinkClass($level)
+    public function getLinkClass($level, $active)
     {
-        return $this->getClass($this->itemClasses, $this->theme, $level, "link", "");
+        $class = $this->getClass($this->itemClasses, $this->theme, $level, $active ? "active" : "link", "", true);
+
+        if (!$class) {
+            $class = $this->getClass($this->itemClasses, $this->theme, $level, "link", "");
+        }
+
+        return $class;
     }
 
     public function getTextClass($level)
@@ -137,7 +164,7 @@ class MenuContainer extends Collection
         return $this->getClass($this->containerClasses, $this->theme, $level, "ulClass", "menu-theme-{$this->theme} z-" . $level * 10);
     }
 
-    private function getClass($container, $theme, $level, $key, $suffix)
+    private function getClass($container, $theme, $level, $key, $suffix, $return = false)
     {
         if (!is_array($container)) {
             return " " . $suffix;
@@ -153,6 +180,10 @@ class MenuContainer extends Collection
 
         if (isset($container[$theme]["n"]) && isset($container[$theme]["n"][$key])) {
             return $container[$theme]["n"][$key] . " " . $suffix;
+        }
+
+        if ($return) {
+            return false;
         }
 
         return " " . $suffix;

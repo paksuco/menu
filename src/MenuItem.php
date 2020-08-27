@@ -9,6 +9,7 @@ class MenuItem
     protected $icon;
     protected $link;
     protected $children;
+    public $active = false;
 
     private function __construct()
     {

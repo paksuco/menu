@@ -71,6 +71,8 @@ class MenuManager
                 "container" => $container,
             ]);
 
+            $container->setActiveClasses();
+
             return view("paksuco::menucontainer", [
                 "container" => $container,
                 "level" => 0,
