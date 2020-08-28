@@ -28,7 +28,7 @@ class MenuItem
 
     public function build()
     {
-        return view("paksuco::menuitem", ["item" => $this]);
+        return view("paksuco-menu::menuitem", ["item" => $this]);
     }
 
     public function __toString()

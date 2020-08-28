@@ -70,7 +70,7 @@ class Menu extends Component
      */
     public function render()
     {
-        return view('paksuco::menu', [
+        return view('paksuco-menu::menu', [
             "manager" => $this->menuManager,
             "key" => $this->key,
             "theme" => $this->theme,

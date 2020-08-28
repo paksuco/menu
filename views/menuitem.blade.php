@@ -13,5 +13,5 @@ $hasChildren = $item->getChildren()->count() > 0;
     @endif
 </a>
 @if($hasChildren)
-@include("paksuco::menucontainer", ["container" => $item->getChildren()->setTheme($theme), "level" => $level + 1])
+@include("paksuco-menu::menucontainer", ["container" => $item->getChildren()->setTheme($theme), "level" => $level + 1])
 @endif

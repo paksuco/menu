@@ -13,7 +13,7 @@
         @mouseleave="open_{{$random}}_{{$loop->index}}_{{$level}} = false"
         @endif
         >
-        @include("paksuco::menuitem", ["item" => $menuitem, "level" => $level])
+        @include("paksuco-menu::menuitem", ["item" => $menuitem, "level" => $level])
     </li>
     @endforeach
 </ul>
