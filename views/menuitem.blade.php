@@ -1,7 +1,8 @@
 @php
 $hasChildren = $item->getChildren()->count() > 0;
 @endphp
-<a class="{{$container->getLinkClass($level, $item->active)}}" @if($hasChildren) href="#" @else href="{{$item->getLink()}}" @endif>
+<a class="{{$container->getLinkClass($level,  $showActive && $item->active)}}"
+    @if($hasChildren) href="#" @else href="{{$item->getLink()}}" @endif>
     <div class="flex items-center">
         @if($item->getIconClass())
         <i class="{{$container->getIconClass($level)}} {{$item->getIconClass()}}"></i>
@@ -13,5 +14,9 @@ $hasChildren = $item->getChildren()->count() > 0;
     @endif
 </a>
 @if($hasChildren)
-@include("paksuco-menu::menucontainer", ["container" => $item->getChildren()->setTheme($theme), "level" => $level + 1])
+@include("paksuco-menu::menucontainer", [
+    "container" => $item->getChildren()->setTheme($theme),
+    "level" => $level + 1,
+    "showActive" => $showActive
+])
 @endif

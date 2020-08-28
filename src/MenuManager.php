@@ -57,7 +57,7 @@ class MenuManager
         $this->menus[$key] = $menu;
     }
 
-    public function dump(string $key, string $theme, bool $hoverable = false)
+    public function dump(string $key, string $theme, bool $hoverable = false, bool $showActive = false)
     {
         if ($this->menus->has($key)) {
             // Enable other classes to extend the menu items
@@ -79,6 +79,7 @@ class MenuManager
                 "theme" => $theme,
                 "random" => $random,
                 "hoverable" => $hoverable,
+                "showActive" => $showActive
             ]);
         }
 
