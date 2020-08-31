@@ -80,7 +80,7 @@ class MenuServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/paksuco-menu')]);
 
         $this->loadViewsFrom(__DIR__ . '/../views/', 'paksuco-menu');
-        $this->loadViewComponentsAs("paksuco-menu", [ Components\Menu::class ]);
+        $this->loadViewComponentsAs("paksuco", [ Components\Menu::class ]);
     }
 
     /**
