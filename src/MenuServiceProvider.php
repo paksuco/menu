@@ -77,7 +77,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function handleViewComponents()
     {
-        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/paksuco-menu')]);
+        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/paksuco-menu')], "views");
 
         $this->loadViewsFrom(__DIR__ . '/../views/', 'paksuco-menu');
         $this->loadViewComponentsAs("paksuco", [ Components\Menu::class ]);
