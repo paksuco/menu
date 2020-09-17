@@ -70,7 +70,7 @@ class MenuItem
 
     public function getChildren() : MenuContainer
     {
-        return $this->children->sortBy("priority");
+        return $this->children;
     }
 
     public function setChildren(MenuContainer $children)
