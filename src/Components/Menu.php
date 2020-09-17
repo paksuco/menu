@@ -8,7 +8,6 @@ use Paksuco\Menu\MenuManager;
 
 class Menu extends Component
 {
-
     /**
      * The key of the menu
      *

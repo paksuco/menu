@@ -9,6 +9,7 @@ class MenuItem
     protected $icon;
     protected $link;
     protected $children;
+    public $priority;
     public $active = false;
 
     private function __construct()
@@ -16,13 +17,14 @@ class MenuItem
         // prevent instantiation
     }
 
-    public static function create(string $title, string $link, string $icon = "")
+    public static function create(string $title, string $link, string $icon = "", $priority = 100)
     {
         $instance = new static;
         $instance->title = $title;
         $instance->link = $link;
         $instance->icon = $icon;
         $instance->children = new MenuContainer();
+        $instance->priority = $priority;
         return $instance;
     }
 
@@ -68,7 +70,7 @@ class MenuItem
 
     public function getChildren() : MenuContainer
     {
-        return $this->children;
+        return $this->children->sortBy("priority");
     }
 
     public function setChildren(MenuContainer $children)

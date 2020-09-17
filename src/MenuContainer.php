@@ -30,9 +30,9 @@ class MenuContainer extends Collection
 
     public $active = false;
 
-    public function addItem(string $title, string $link, string $icon = "", callable $callback = null)
+    public function addItem(string $title, string $link, string $icon = "", callable $callback = null, $priority = 100)
     {
-        $menuItem = MenuItem::create($title, $link, $icon);
+        $menuItem = MenuItem::create($title, $link, $icon, $priority);
         $menuItem->getChildren()
             ->setStyles($this->containerClasses, $this->itemClasses)
             ->setTheme($this->theme);

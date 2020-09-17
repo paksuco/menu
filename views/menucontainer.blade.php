@@ -2,7 +2,7 @@
 <ul x-cloak class="{{$container->getULClass($level)}}" @if($level> 0) x-cloak
     x-show.transition="open_{{$random}}_{{$loop->index}}_{{$level-1}}" @endif
     >
-    @foreach($container as $menuitem)
+    @foreach($container->sortBy("priority") as $menuitem)
     @php $childCount = $menuitem->getChildren()->count(); @endphp
     <li class="{{$container->getLIClass($level, $childCount)}}" @if($childCount || $level> 0) x-data="{
         open_{{$random}}_{{$loop->index}}_{{$level}}: {{$showActive && $menuitem->active ? 'true' : 'false'}} }" @endif
