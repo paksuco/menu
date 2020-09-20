@@ -2,7 +2,6 @@
 
 namespace Paksuco\Menu\Components;
 
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Paksuco\Menu\MenuManager;
 
@@ -46,6 +45,8 @@ class Menu extends Component
 
     public $showActive;
 
+    public $activeVisible;
+
     /**
      * Create the component instance.
      *
@@ -61,7 +62,8 @@ class Menu extends Component
         string $class = null,
         string $title = "",
         string $titleClass = "",
-        bool $showActive = false
+        bool $showActive = false,
+        bool $activeVisible = false
     ) {
         $this->menuManager = $menuManager;
         $this->key = $key;
@@ -72,6 +74,7 @@ class Menu extends Component
         $this->title = $title . "";
         $this->titleClass = $titleClass . "";
         $this->showActive = !!$showActive;
+        $this->activeVisible = !!$activeVisible;
     }
 
     /**
@@ -90,7 +93,8 @@ class Menu extends Component
             "class" => $this->class,
             "title" => $this->title,
             "titleClass" => $this->titleClass,
-            "showActive" => $this->showActive
+            "showActive" => $this->showActive,
+            "activeVisible" => $this->activeVisible
         ]);
     }
 }

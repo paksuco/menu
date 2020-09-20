@@ -3,5 +3,5 @@
     @if(!empty($title))
     <div class="{{$titleClass}}">{{$title}}</div>
     @endif
-    {!! $menuManager->dump($key, $theme, $hoverable, $showActive) !!}
+    {!! $menuManager->dump($key, $theme, $hoverable, $showActive, $activeVisible) !!}
 </nav>

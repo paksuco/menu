@@ -32,22 +32,34 @@ class MenuContainer extends Collection
 
     public function addItem(string $title, string $link, string $icon = "", callable $callback = null, $priority = 100)
     {
-        $menuItem = MenuItem::create($title, $link, $icon, $priority);
-        $menuItem->getChildren()
-            ->setStyles($this->containerClasses, $this->itemClasses)
-            ->setTheme($this->theme);
-        $this->push($menuItem);
+        $menuItem = $this->getItem($title);
+
+        if ($menuItem == null) {
+            $menuItem = MenuItem::create($title, $link, $icon, $priority);
+
+            $menuItem->getChildren()
+                ->setStyles($this->containerClasses, $this->itemClasses)
+                ->setTheme($this->theme);
+            $this->push($menuItem);
+        }
+
         if ($callback) {
             $callback($menuItem->getChildren());
         }
+
         return $this;
+    }
+
+    public function getItem(string $title)
+    {
+        return collect($this->items)->filter(function ($menuitem) use ($title) {
+            return $menuitem->getTitle() === $title;
+        })->first();
     }
 
     public function hasItem(string $title)
     {
-        return collect($this->items)->filter(function ($menuitem) use ($title) {
-            return $menuitem->getTitle() === $title;
-        })->count() > 0;
+        $this->getItem($title) === null;
     }
 
     public function getChildren(string $title)

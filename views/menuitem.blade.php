@@ -17,6 +17,7 @@ $hasChildren = $item->getChildren()->count() > 0;
 @include("paksuco-menu::menucontainer", [
     "container" => $item->getChildren()->setTheme($theme),
     "level" => $level + 1,
-    "showActive" => $showActive
+    "showActive" => $showActive,
+    "activeVisible" => $activeVisible
 ])
 @endif
