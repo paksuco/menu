@@ -11,13 +11,14 @@ class MenuItem
     protected $children;
     public $priority;
     public $active = false;
+    protected $badge;
 
     private function __construct()
     {
         // prevent instantiation
     }
 
-    public static function create(string $title, string $link, string $icon = "", $priority = 100)
+    public static function create(string $title, string $link, string $icon = "", $priority = 100, $badge = null)
     {
         $instance = new static;
         $instance->title = $title;
@@ -25,6 +26,7 @@ class MenuItem
         $instance->icon = $icon;
         $instance->children = new MenuContainer();
         $instance->priority = $priority;
+        $instance->badge = $badge;
         return $instance;
     }
 
@@ -46,6 +48,16 @@ class MenuItem
     public function setTitle(string $title)
     {
         $this->title = $title;
+    }
+
+    public function getBadge()
+    {
+        return $this->badge;
+    }
+
+    public function setBadge(string $badge)
+    {
+        $this->badge = $badge;
     }
 
     public function getIconClass()
