@@ -2,6 +2,7 @@
 
 namespace Paksuco\Menu\Contracts;
 
+use Illuminate\Support\Facades\Event;
 use Paksuco\Menu\Exceptions\InvalidKeyException;
 use Paksuco\Menu\MenuContainer;
 use Paksuco\Menu\MenuManager;
@@ -11,13 +12,6 @@ use Paksuco\Menu\MenuManager;
  */
 abstract class Menu
 {
-    /**
-     * Dependency injected MenuManager instance
-     *
-     * @var MenuManager
-     */
-    protected $manager;
-
     /**
      * The key of the menu
      *
@@ -67,21 +61,11 @@ abstract class Menu
         ],
     ];
 
-    /**
-     * Class constructor
-     *
-     * @param   MenuManager  $manager  The global menu manager
-     *
-     * @return  void
-     */
-    public function __construct(MenuManager $manager)
+    public function __construct()
     {
         if (empty($this->key)) {
             throw new InvalidKeyException();
         }
-
-        $this->manager = $manager;
-        $this->manager->push($this);
 
         $this->menu = new MenuContainer();
         $this->menu->setStyles(
@@ -116,4 +100,34 @@ abstract class Menu
      * @return  void
      */
     abstract public function build(MenuContainer $container);
+
+    public function dump(
+        string $theme,
+        bool $hoverable = false,
+        bool $showActive = false,
+        bool $activeVisible = false
+    ) {
+        // Enable other classes to extend the menu items
+        $container = $this->getContainer();
+        $container->setTheme($theme);
+
+        $random = \Illuminate\Support\Str::random(8);
+
+        Event::dispatch("paksuco.menu.beforeRender", [
+            "key" => $this->getKey(),
+            "container" => $container,
+        ]);
+
+        $container->setActiveClasses();
+
+        return view("paksuco-menu::menucontainer", [
+            "container" => $container,
+            "level" => 0,
+            "theme" => $theme,
+            "random" => $random,
+            "hoverable" => $hoverable,
+            "showActive" => $showActive,
+            "activeVisible" => $activeVisible,
+        ]);
+    }
 }
