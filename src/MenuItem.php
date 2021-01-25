@@ -42,7 +42,7 @@ class MenuItem
 
     public function getTitle()
     {
-        return $this->title;
+        return __($this->title);
     }
 
     public function setTitle(string $title)
