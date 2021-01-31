@@ -7,9 +7,9 @@ $hasChildren = $item->getChildren()->count() > 0;
         @if($item->getIconClass())
         <i class="{{$container->getIconClass($level)}} {{$item->getIconClass()}}"></i>
         @endif
-        <span class="{{$container->getTextClass($level)}}">{{$item->getTitle()}}</span>
+        <span class="{{$container->getTextClass($level)}} flex-1">{{$item->getTitle()}}</span>
         @if(!empty($item->getBadge()))
-        <span class="flex items-center justify-center w-6 py-0 ml-2 -mt-px text-xs font-semibold leading-4 text-center text-gray-700 bg-gray-200 rounded-full">{{$item->getBadge()}}</span>
+        <span class="flex items-center justify-center px-2 py-0 ml-2 -mr-1 font-semibold leading-4 text-gray-800 bg-gray-200 rounded-lg" style="font-size:10px;padding-bottom: 2px">{{$item->getBadge()}}</span>
         @endif
     </div>
     @if($hasChildren)
