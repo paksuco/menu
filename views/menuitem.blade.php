@@ -9,7 +9,7 @@ $hasChildren = $item->getChildren()->count() > 0;
         @endif
         <span class="{{$container->getTextClass($level)}} flex-1">{{$item->getTitle()}}</span>
         @if(!empty($item->getBadge()))
-        <span class="flex items-center justify-center px-2 py-0 ml-2 -mr-1 font-semibold leading-4 text-gray-800 bg-gray-200 rounded-lg" style="font-size:10px;padding-bottom: 2px">{{$item->getBadge()}}</span>
+        <span class="flex items-center justify-center px-2 py-0 ml-2 font-semibold leading-4 text-gray-800 bg-gray-200 rounded-lg" style="font-size:10px;padding-bottom: 2px">{{$item->getBadge()}}</span>
         @endif
     </div>
     @if($hasChildren)
